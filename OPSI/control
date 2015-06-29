@@ -1,0 +1,84 @@
+[Package]
+version: 2
+depends:
+incremental: False
+
+[Product]
+type: localboot
+id: dfn_irfanview
+name: IrfanView
+description: IrfanView is a very fast, small, compact and innovative freeware (for non-commercial use) graphic viewer for Windows 9x, ME, NT, 2000, XP, 2003 , 2008, Vista, Windows 7, Windows 8. It is designed to be simple for beginners and powerful for professionals.
+advice: 
+version: 4.38
+priority: 0
+licenseRequired: False
+productClasses:
+setupScript: setup.opsiscript
+uninstallScript: uninstall.opsiscript
+updateScript: 
+alwaysScript: 
+onceScript: 
+customScript: 
+userLoginScript: 
+
+[ProductProperty]
+type: unicode
+name: language
+multivalue: False
+editable: False
+description: Sets the installation language of the program. Can be changed by the user later.
+values: ["auto", "de", "en", "fr"]
+default: ["auto"]
+
+[Changelog]
+irfanview (4.35-1) stable;
+	* iview435
+	* plugins435
+-- Eric Esser <eric.esser@wzb.eu>  Wed, 27 Feb 2013 14:44 +0000
+
+irfanview (4.33-2) stable;
+
+	* set Priority from -20 to 0
+	* requiredWinstVersion >= "4.11.2.6"
+	* setloglevel = 6
+	* fix trailing space in Winbatch_uninstall
+	* code cleanup
+
+-- d.oertel <d.oertel@uib.de>  Thu, 19 Jul 2012 15:00 +0000
+
+
+irfanview (4.33-1) stable; s.ehlers
+	* iview433
+	* plugins
+-- s.ehlers <s.ehlers@uib.de>  Mon, 27 Jun 2012 15:00 +0000
+
+irfanview-adminutils (4.32-1) stable; bardo wolf
+	* iview432
+	* plugins
+
+-- b.wolf@uib.de <b.wolf@uib.de>  Mon, 22 Jan 2012 11:19:22 +0000
+
+irfanview-adminutils (4.25-1) stable; bardo wolf
+	* iview425 (07.09.2009)
+	* plugins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

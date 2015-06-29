@@ -1,0 +1,80 @@
+; Copyright (c) uib gmbh (www.uib.de)
+; This sourcecode is owned by uib gmbh
+; and published under the Terms of the General Public License.
+; credits: http://www.opsi.org/en/credits/
+
+[Initial]
+LogLevel=9
+;  Log Errors in Logfile but don't abort:
+ExitOnError=false
+; Show syntax errors in the script:
+ScriptErrorMessages=on
+; Dont trace step by step through the script:
+TraceMode=off
+; let started programs run in front of the winst window
+StayOnTop=false
+ 
+[Actions]
+requiredWinstVersion >= "4.11.2.6"
+ 
+DefVar $UninstallProgram32$
+DefVar $UninstallProgram64$
+DefVar $LogDir$
+DefVar $ExitCode$
+DefVar $ProductId$
+DefVar $InstallDir32$
+DefVar $InstallDir64$
+DefVar $LicenseRequired$
+DefVar $LicensePool$
+DefVar $INST_SystemType$
+DefVar $INST_architecture$
+DefVar $Uninst_Cmd$
+DefVar $Uninst_Prg$
+DefVar $PrettyName$
+ 
+Set $INST_SystemType$ = GetSystemType
+set $INST_architecture$ = GetProductProperty("install_architecture","system specific")
+ 
+ 
+Set $LogDir$ = "%SystemDrive%\tmp"
+ 
+; ----------------------------------------------------------------
+; - Please edit the following values                             -
+; ----------------------------------------------------------------
+Set $ProductId$       = "irfanview"
+Set $PrettyName$ 			= "Irfan View"
+Set $InstallDir32$    = "%ProgramFiles32Dir%\IrfanView"
+Set $InstallDir64$    = "%ProgramFiles64Dir%\IrfanView"
+Set $LicenseRequired$ = "false"
+Set $LicensePool$     = "p_" + $ProductId$
+Set $Uninst_Prg$        = "iv_uninstall.exe"
+; ----------------------------------------------------------------
+ 
+comment "Show product picture"
+ShowBitmap "%ScriptPath%\" + $ProductId$ + ".png" $PrettyName$
+ 
+Message "Uninstalling " + $ProductId$ + " ..."
+ 
+if FileExists("%ScriptPath%\delsub.opsiscript")
+        comment "Start uninstall sub section"
+        Sub "%ScriptPath%\delsub.opsiscript"
+endif
+ 
+if $LicenseRequired$ = "true"
+        comment "Licensing required, free license used"
+        Sub_free_license
+endif
+ 
+[Sub_free_license]
+comment "License management is enabled and will be used"
+ 
+comment "Trying to free license used for the product"
+DefVar $result$
+Set $result$ = FreeLicense($LicensePool$)
+; If there is an assignment of a license pool to the product, it is possible to use
+; Set $result$ = FreeLicense("", $ProductId$)
+;
+; If there is an assignment of a license pool to a windows software id, it is possible to use
+; DefVar $WindowsSoftwareId$
+; $WindowsSoftwareId$ = "..."
+; set $result$ = FreeLicense("", "", $WindowsSoftwareId$)
