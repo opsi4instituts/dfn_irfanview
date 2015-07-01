@@ -30,7 +30,9 @@ DefVar $INST_SystemType$
 DefVar $INST_architecture$
 DefVar $Uninst_Cmd$
 DefVar $Uninst_Prg$
-DefVar $PrettyName$
+DefVar $ProductName$
+DefVar $DesktopIcon$
+DefVar $CustomPostDeinstall$ 
  
 Set $INST_SystemType$ = GetSystemType
 set $INST_architecture$ = GetProductProperty("install_architecture","system specific")
@@ -42,7 +44,7 @@ Set $LogDir$ = "%SystemDrive%\tmp"
 ; - Please edit the following values                             -
 ; ----------------------------------------------------------------
 Set $ProductId$       = "irfanview"
-Set $PrettyName$ 			= "Irfan View"
+Set $ProductName$ 			= "IrfanView"
 Set $InstallDir32$    = "%ProgramFiles32Dir%\IrfanView"
 Set $InstallDir64$    = "%ProgramFiles64Dir%\IrfanView"
 Set $LicenseRequired$ = "false"
@@ -51,7 +53,7 @@ Set $Uninst_Prg$        = "iv_uninstall.exe"
 ; ----------------------------------------------------------------
  
 comment "Show product picture"
-ShowBitmap "%ScriptPath%\" + $ProductId$ + ".png" $PrettyName$
+ShowBitmap "%ScriptPath%\" + $ProductId$ + ".png" $ProductName$
  
 Message "Uninstalling " + $ProductId$ + " ..."
  

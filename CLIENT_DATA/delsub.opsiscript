@@ -11,6 +11,21 @@ if FileExists($UninstallProgram32$)
   Files_uninstall_32
 
   sub_check_exitcode
+ 
+	set $DesktopIcon$ = getProductProperty("desktopicon","no")
+	if $DesktopIcon$ = "yes"
+		comment "Delete common desktop icon"
+		Linkfolder_uninstall_desktopicon	
+	endif
+
+  	comment "include custom post deinstall file"
+  	set $CustomPostDeinstall$ = getProductProperty("custom-post-deinstall","none")
+  	if not ($CustomPostDeinstall$ = "none")
+  		if FileExists("%ScriptPath%\custom\" + $CustomPostDeinstall$)
+			include_insert "%ScriptPath%\custom\" + $CustomPostDeinstall$
+		endif
+	endif
+  
 endif
  
  
@@ -45,6 +60,11 @@ delete -sf "$InstallDir32$\"
 ; Example for recursively deleting the installation directory (don't forget the trailing backslash):
 ;
 delete -sf "$InstallDir64$\"
+
+[Linkfolder_uninstall_desktopicon]
+set_basefolder common_desktopdirectory
+set_subfolder ""
+delete_element $ProductName$
  
 [Sub_check_exitcode]
 comment "Test for installation success via exit code"
