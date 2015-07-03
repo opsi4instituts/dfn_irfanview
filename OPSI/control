@@ -7,7 +7,7 @@ incremental: False
 type: localboot
 id: dfn_irfanview
 name: IrfanView
-description: IrfanView is a very fast, small, compact and innovative freeware (for non-commercial use) graphic viewer for Windows 9x, ME, NT, 2000, XP, 2003 , 2008, Vista, Windows 7, Windows 8. It is designed to be simple for beginners and powerful for professionals.
+description: Schneller und kompakter Bildbetrachter 
 advice: 
 version: 4.38
 priority: 0
