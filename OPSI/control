@@ -1,5 +1,5 @@
 [Package]
-version: 3
+version: 4
 depends: 
 incremental: False
 
@@ -7,7 +7,7 @@ incremental: False
 type: localboot
 id: dfn_irfanview
 name: IrfanView
-description: Schneller und kompakter Bildbetrachter 
+description: Schneller und kompakter Bildbetrachter
 advice: 
 version: 4.38
 priority: 0
@@ -58,6 +58,10 @@ values: ["none", "post-deinstall.opsiinc"]
 default: ["none"]
 
 [Changelog]
+irfanview (4.38-4)
+	* $ProductId$ wie in 'control' angeglichen
+ -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 21.07.2015
+
 irfanview (4.38-3);
 	* Desktopicon configurable
 	* "Custom directory"
@@ -93,6 +97,8 @@ irfanview-adminutils (4.32-1) stable; bardo wolf
 irfanview-adminutils (4.25-1) stable; bardo wolf
 	* iview425 (07.09.2009)
 	* plugins
+
+
 
 
 

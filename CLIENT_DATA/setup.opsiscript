@@ -62,7 +62,7 @@ Set $LogDir$ = "%SystemDrive%\tmp"
 ;$ProductId$ should be the name of the product in opsi
 ; therefore please: only lower letters, no umlauts,
 ; no white space use '-' as a seperator
-Set $ProductId$       			= "irfanview"
+Set $ProductId$       			= "dfn_irfanview"
 Set $ProductName$ = "IrfanView"
 ;Kein Punkt in der Versionsnummer! 4.30 ist 430, 4.40 ist 440 oder 4.51 ist 451!
 Set $Version$         			= "438"
@@ -169,7 +169,7 @@ else
 				;Sub_check_exitcode
 				
 				; Pfad zur Exe aus Registry holen und aufbereiten: "C:\Programme\IrfanView\i_view32.exe,0"
-				Set $PathToExe$ = GetRegistryStringValue32("[" + $RegPath$ + "\" + $ProductId$ + "] DisplayIcon")
+				Set $PathToExe$ = GetRegistryStringValue32("[" + $RegPath$ + "\" + $ProductName$ + "] DisplayIcon")
 				; Registry-Wert nach Kommata splitten und ersten Wert nehmen
 				Set $PathToExe$ = takeString (0, splitString ( $PathToExe$ , ','))
 

@@ -43,7 +43,7 @@ Set $LogDir$ = "%SystemDrive%\tmp"
 ; ----------------------------------------------------------------
 ; - Please edit the following values                             -
 ; ----------------------------------------------------------------
-Set $ProductId$       = "irfanview"
+Set $ProductId$       = "dfn_irfanview"
 Set $ProductName$ 			= "IrfanView"
 Set $InstallDir32$    = "%ProgramFiles32Dir%\IrfanView"
 Set $InstallDir64$    = "%ProgramFiles64Dir%\IrfanView"
