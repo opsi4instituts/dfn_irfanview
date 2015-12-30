@@ -1,5 +1,5 @@
 [Package]
-version: 4
+version: 1
 depends: 
 incremental: False
 
@@ -7,9 +7,9 @@ incremental: False
 type: localboot
 id: dfn_irfanview
 name: IrfanView
-description: Schneller und kompakter Bildbetrachter
+description: Schneller und kompakter Bildbetrachter / Fast freeware image viewer
 advice: 
-version: 4.38
+version: 4.41
 priority: 0
 licenseRequired: False
 productClasses: 
@@ -97,6 +97,8 @@ irfanview-adminutils (4.32-1) stable; bardo wolf
 irfanview-adminutils (4.25-1) stable; bardo wolf
 	* iview425 (07.09.2009)
 	* plugins
+
+
 
 
 
