@@ -9,7 +9,7 @@ id: dfn_irfanview
 name: IrfanView
 description: Schneller und kompakter Bildbetrachter / Fast freeware image viewer
 advice: 
-version: 4.41
+version: 4.42
 priority: 0
 licenseRequired: False
 productClasses: 
@@ -97,6 +97,7 @@ irfanview-adminutils (4.32-1) stable; bardo wolf
 irfanview-adminutils (4.25-1) stable; bardo wolf
 	* iview425 (07.09.2009)
 	* plugins
+
 
 
 
