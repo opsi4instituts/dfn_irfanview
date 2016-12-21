@@ -30,7 +30,7 @@ DefVar $ExitCode$
 DefVar $LicenseRequired$
 DefVar $LicenseKey$
 DefVar $LicensePool$
-DefVar $SetupVersion$
+DefVar $Version$
 DefVar $PrettyVersion$
 DefVar $Inst_Prg$
 DefVar $Inst_Prg_Plg$
@@ -54,7 +54,7 @@ DefVar $PathToExe$
 
 DefStringList $languagemap$
 
-Set $LogDir$ = "%SystemDrive%\tmp"
+Set $LogDir$ = "%opsiLogDir%"
 
 ; ----------------------------------------------------------------
 ; - Please edit the following values                             -
@@ -62,12 +62,11 @@ Set $LogDir$ = "%SystemDrive%\tmp"
 ;$ProductId$ should be the name of the product in opsi
 ; therefore please: only lower letters, no umlauts,
 ; no white space use '-' as a seperator
-Set $ProductId$      = "irfanview"
-Set $ProductName$    = "IrfanView"
+Set $ProductId$       			= "dfn_irfanview"
+Set $ProductName$ 			= "IrfanView"
 ;Kein Punkt in der Versionsnummer! 4.30 ist 430, 4.40 ist 440 oder 4.51 ist 451!
-Set $PrettyVersion$ = strPart("%installingProdVersion%", "1", calculate(strPos("%installingProdVersion%","-") + "-" + "1" ))
-Set $SetupVersion$ = strPart($PrettyVersion$, "1", "1") + strPart($PrettyVersion$, "3", "2") 
-
+Set $Version$         			= "444"
+Set $PrettyVersion$	  		= "4.44"
 Set $MinimumSpace$    			= "50 MB"
 ; the path were we find the product after the installation
 Set $InstallDir32$      		= "%ProgramFiles32Dir%\IrfanView"
@@ -76,21 +75,21 @@ Set $LicensePool$     			= "p_" + $ProductId$
 
 ;Defaults initializing
 Set $default_language$ 			= "en"
-Set $ini_file_name$					= "i_view32.ini"
-Set $Inst_Prg$ 							= "iview"+$SetupVersion$+"g_setup.exe"
-Set $language_inifile_dll$ 	= "ENGLISH"
-Set $language_inifile_lang$ = "English"
+Set $ini_file_name$			= "i_view32.ini"
+Set $Inst_Prg$ 				= "iview"+$Version$+"_setup.exe"
+Set $language_inifile_dll$ 		= "ENGLISH"
+Set $language_inifile_lang$ 		= "English"
 
-Set $Inst_Prg_Plg$ 					= "irfanview_plugins_"+$SetupVersion$+"_setup.exe"
+Set $Inst_Prg_Plg$ 			= "irfanview_plugins_"+$Version$+"_setup.exe"
 
-Set $Inst_Cmd$ 							= ' /silent /folder="'+$InstallDir32$+'" /desktop=0 /allusers=1 /group=1 /assoc=1'
-Set $Inst_Cmd_Plg$ 					= ' /silent'
+Set $Inst_Cmd$ 				= ' /silent /folder="'+$InstallDir32$+'" /desktop=0 /allusers=1 /group=1 /assoc=1'
+Set $Inst_Cmd_Plg$ 			= ' /silent'
 Set $Uninst_Prg$        		= "iv_uninstall.exe"
 
-Set $language_files_path$ 	= $InstallDir32$ + "\Languages"
+Set $language_files_path$ 		= $InstallDir32$ + "\Languages"
 Set $help_files_path$ 			= $InstallDir32$ + "\Help" 
-Set $language$ 							= GetProductProperty("language", $default_language$)
-Set $RegPath$		            = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
+Set $language$ 				= GetProductProperty("language", $default_language$)
+Set $RegPath$		= "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 ; ----------------------------------------------------------------
 if not(HasMinimumSpace ("%SYSTEMDRIVE%", $MinimumSpace$))
 				LogError "Not enough space on %SystemDrive%, " + $MinimumSpace$ + " on drive %SystemDrive% needed for " + $ProductId$

@@ -1,5 +1,6 @@
 *.opsi
 *.bak
 *.exe
+*.md5
 custom
 orig

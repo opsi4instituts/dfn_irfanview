@@ -7,9 +7,9 @@ incremental: False
 type: localboot
 id: dfn_irfanview
 name: IrfanView
-description: Schneller und kompakter Bildbetrachter / Fast freeware image viewer
+description: Schneller und kompakter Bildbetrachter
 advice: 
-version: 4.42
+version: 4.44
 priority: 0
 licenseRequired: False
 productClasses: 
@@ -58,7 +58,21 @@ values: ["none", "post-deinstall.opsiinc"]
 default: ["none"]
 
 [Changelog]
-irfanview (4.38-4)
+dfn_irfanview (4.44-1)
+	* Neue Upstreamversion
+	* o4i-Logo repariert
+ -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 21.12.2016
+
+irfanview (4.42-1)
+	* Update (nur 32Bit)
+	* o4i-Logo
+ -- Detlef Krummel (GEI) <krummel@gei.de>, 16.08.2015
+
+irfanview (4.40-5)
+	* Update (nur 32Bit)
+ -- Detlef Krummel (GEI) <krummel@gei.de>, 16.08.2015
+
+ irfanview (4.38-4)
 	* $ProductId$ wie in 'control' angeglichen
  -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 21.07.2015
 
@@ -97,6 +111,9 @@ irfanview-adminutils (4.32-1) stable; bardo wolf
 irfanview-adminutils (4.25-1) stable; bardo wolf
 	* iview425 (07.09.2009)
 	* plugins
+
+
+
 
 
 

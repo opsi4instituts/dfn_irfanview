@@ -38,7 +38,7 @@ Set $INST_SystemType$ = GetSystemType
 set $INST_architecture$ = GetProductProperty("install_architecture","system specific")
  
  
-Set $LogDir$ = "%SystemDrive%\tmp"
+Set $LogDir$ = "%opsiLogDir%"
  
 ; ----------------------------------------------------------------
 ; - Please edit the following values                             -
