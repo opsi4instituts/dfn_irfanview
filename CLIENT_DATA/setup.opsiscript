@@ -30,8 +30,8 @@ DefVar $ExitCode$
 DefVar $LicenseRequired$
 DefVar $LicenseKey$
 DefVar $LicensePool$
-DefVar $Version$
-DefVar $PrettyVersion$
+DefVar $SetupVersion$
+DefVar $ProductVersion$
 DefVar $Inst_Prg$
 DefVar $Inst_Prg_Plg$
 DefVar $Inst_Cmd$
@@ -53,8 +53,9 @@ DefVar $RegPath$
 DefVar $PathToExe$
 
 DefStringList $languagemap$
+DefStringList $Inifile$
 
-Set $LogDir$ = "%opsiLogDir%"
+Set $LogDir$ = "%SystemDrive%\tmp"
 
 ; ----------------------------------------------------------------
 ; - Please edit the following values                             -
@@ -62,11 +63,12 @@ Set $LogDir$ = "%opsiLogDir%"
 ;$ProductId$ should be the name of the product in opsi
 ; therefore please: only lower letters, no umlauts,
 ; no white space use '-' as a seperator
-Set $ProductId$       			= "dfn_irfanview"
-Set $ProductName$ 			= "IrfanView"
+Set $ProductId$      = "dfn_irfanview"
+Set $ProductName$    = "IrfanView"
 ;Kein Punkt in der Versionsnummer! 4.30 ist 430, 4.40 ist 440 oder 4.51 ist 451!
-Set $Version$         			= "444"
-Set $PrettyVersion$	  		= "4.44"
+Set $ProductVersion$ = strPart("%installingProdVersion%", "1", calculate(strPos("%installingProdVersion%","-") + "-" + "1" ))
+Set $SetupVersion$ = strPart($ProductVersion$, "1", "1") + strPart($ProductVersion$, "3", "2") 
+
 Set $MinimumSpace$    			= "50 MB"
 ; the path were we find the product after the installation
 Set $InstallDir32$      		= "%ProgramFiles32Dir%\IrfanView"
@@ -75,21 +77,21 @@ Set $LicensePool$     			= "p_" + $ProductId$
 
 ;Defaults initializing
 Set $default_language$ 			= "en"
-Set $ini_file_name$			= "i_view32.ini"
-Set $Inst_Prg$ 				= "iview"+$Version$+"_setup.exe"
-Set $language_inifile_dll$ 		= "ENGLISH"
-Set $language_inifile_lang$ 		= "English"
+Set $ini_file_name$					= "i_view32.ini"
+Set $Inst_Prg$ 							= "iview"+$SetupVersion$+"g_setup.exe"
+Set $language_inifile_dll$ 	= "ENGLISH"
+Set $language_inifile_lang$ = "English"
 
-Set $Inst_Prg_Plg$ 			= "irfanview_plugins_"+$Version$+"_setup.exe"
+Set $Inst_Prg_Plg$ 					= "irfanview_plugins_"+$SetupVersion$+"_setup.exe"
 
-Set $Inst_Cmd$ 				= ' /silent /folder="'+$InstallDir32$+'" /desktop=0 /allusers=1 /group=1 /assoc=1'
-Set $Inst_Cmd_Plg$ 			= ' /silent'
+Set $Inst_Cmd$ 							= ' /silent /folder="'+$InstallDir32$+'" /desktop=0 /allusers=1 /group=1 /assoc=1'
+Set $Inst_Cmd_Plg$ 					= ' /silent'
 Set $Uninst_Prg$        		= "iv_uninstall.exe"
 
-Set $language_files_path$ 		= $InstallDir32$ + "\Languages"
+Set $language_files_path$ 	= $InstallDir32$ + "\Languages"
 Set $help_files_path$ 			= $InstallDir32$ + "\Help" 
-Set $language$ 				= GetProductProperty("language", $default_language$)
-Set $RegPath$		= "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
+Set $language$ 							= GetProductProperty("language", $default_language$)
+Set $RegPath$		            = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 ; ----------------------------------------------------------------
 if not(HasMinimumSpace ("%SYSTEMDRIVE%", $MinimumSpace$))
 				LogError "Not enough space on %SystemDrive%, " + $MinimumSpace$ + " on drive %SystemDrive% needed for " + $ProductId$
@@ -97,8 +99,14 @@ if not(HasMinimumSpace ("%SYSTEMDRIVE%", $MinimumSpace$))
 				; Stop process and set installation status to failed
 else
 				killtask "i_view32.exe"
-        comment "Show product picture"
-        ShowBitmap "%ScriptPath%\" + $ProductId$ + ".png" "Irfan View " + $PrettyVersion$
+				comment "Show product picture"
+				if (FileExists("%ScriptPath%\..\lib\icons\%installingProdName%.png"))
+					comment "logo at local library/icons found."
+					ShowBitmap "%ScriptPath%\..\lib\icons\%installingProdName%.png" $ProductName$ + " " + $ProductVersion$
+				else
+					comment "no logo at local library/icons, use from ScriptPath ..."
+					ShowBitmap "%ScriptPath%\o4i.png" $ProductName$ + " " + $ProductVersion$
+				endif
 
         if FileExists("%ScriptPath%\delsub.opsiscript")
                 comment "Start uninstall sub section"
@@ -163,7 +171,10 @@ else
         Winbatch_Install_Plugins
 				Sub_check_exitcode
 					
-				Patches_i_view32.ini $InstallDir32$+"\"+$ini_file_name$
+				;PatchTextFile_i_view32.ini $InstallDir32$+"\"+$ini_file_name$
+				;Patches_i_view32.ini $InstallDir32$+"\"+$ini_file_name$
+				;Sub_set_language
+				
 				;comment "Copying ini-File..."
 				;Files_install
 				;Sub_check_exitcode
@@ -210,10 +221,15 @@ copy "%scriptpath%\help\*.*" $help_files_path$
 ; Install the addional plugins 
 "%ScriptPath%\$Inst_Prg_Plg$"+" $Inst_Cmd_Plg$"
  
-[Patches_i_view32.ini]
-change [Language] DLL=$language_inifile_dll$
-change [Language] Lang=$language_inifile_lang$
+;[Patches_i_view32.ini]
+;change [Language] DLL=$language_inifile_dll$
+;change [Language] Lang=$language_inifile_lang$
 
+;[Sub_set_language]
+;Set $Inifile$ = LoadTextFileWithEncoding($InstallDir32$+"\"+$ini_file_name$,"UCS-2LE")
+;....
+;SaveTextFileWithEncoding($InstallDir32$+"\"+$ini_file_name$,"UCS-2LE")
+;
 [Files_install]
 ; Example of recursively copying some files into the installation directory:
 copy "$Inst_Copy_Cmd$" "$InstallDir32$"

@@ -8,9 +8,8 @@ if FileExists($UninstallProgram32$)
   Winbatch_uninstall_32
 
   comment "Removing "+$InstallDir32$
-  Files_uninstall_32
-
-  sub_check_exitcode
+  ;Files_uninstall_32
+  ;sub_check_exitcode
  
 	set $DesktopIcon$ = getProductProperty("desktopicon","no")
 	if $DesktopIcon$ = "yes"

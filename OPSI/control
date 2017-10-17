@@ -7,9 +7,9 @@ incremental: False
 type: localboot
 id: dfn_irfanview
 name: IrfanView
-description: Schneller und kompakter Bildbetrachter
+description: Schneller und kompakter Bildbetrachter / Fast freeware image viewer
 advice: 
-version: 4.44
+version: 4.50
 priority: 0
 licenseRequired: False
 productClasses: 
@@ -58,89 +58,52 @@ values: ["none", "post-deinstall.opsiinc"]
 default: ["none"]
 
 [Changelog]
-dfn_irfanview (4.44-1)
-	* Neue Upstreamversion
-	* o4i-Logo repariert
- -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 21.12.2016
+dfn_irfanview (4.50-1) stable; urgency=low
 
-irfanview (4.42-1)
-	* Update (nur 32Bit)
-	* o4i-Logo
- -- Detlef Krummel (GEI) <krummel@gei.de>, 16.08.2015
+	* o4i-Logo Switch eingebaut, Update auf 4.50 -> Exe getauscht, i_view32.ini-Datei ist jetzt auf UCS-2LE, auskommentiert, bis der neue WINST das Encoding mit den Patches-Sektionen kann...
 
-irfanview (4.40-5)
-	* Update (nur 32Bit)
- -- Detlef Krummel (GEI) <krummel@gei.de>, 16.08.2015
+ -- Eric Esser <eric.esser@wzb.eu>  Wed, 11 Oct 2017 13:43:51 +0000
 
- irfanview (4.38-4)
+dfn_irfanview (4.38-4) stable; urgency=low
+
 	* $ProductId$ wie in 'control' angeglichen
+
  -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 21.07.2015
 
-irfanview (4.38-3);
+dfn_irfanview (4.38-3) stable; urgency=low
+
 	* Desktopicon configurable
-	* "Custom directory"
+ 	* "Custom directory"
+
  -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 30.06.2015
 
-irfanview (4.35-1) stable;
+dfn_irfanview (4.35-1) stable; urgency=low
+
 	* iview435
-	* plugins435
--- Eric Esser <eric.esser@wzb.eu>  Wed, 27 Feb 2013 14:44 +0000
+ 	* plugins435
 
-irfanview (4.33-2) stable;
+ -- Eric Esser <eric.esser@wzb.eu>  Wed, 27 Feb 2013 14:44 +0000
 
-	* set Priority from -20 to 0
-	* requiredWinstVersion >= "4.11.2.6"
-	* setloglevel = 6
-	* fix trailing space in Winbatch_uninstall
-	* code cleanup
+dfn_irfanview (4.33-2) stable; urgency=low
 
--- d.oertel <d.oertel@uib.de>  Thu, 19 Jul 2012 15:00 +0000
+ 	* set Priority from -20 to 0
+ 	* requiredWinstVersion >= "4.11.2.6"
+ 	* setloglevel = 6
+ 	* fix trailing space in Winbatch_uninstall
+ 	* code cleanup
 
+ -- d.oertel <d.oertel@uib.de>  Thu, 19 Jul 2012 15:00 +0000
 
-irfanview (4.33-1) stable; s.ehlers
+dfn_irfanview (4.33-1) stable; urgency=low
+
 	* iview433
 	* plugins
--- s.ehlers <s.ehlers@uib.de>  Mon, 27 Jun 2012 15:00 +0000
 
-irfanview-adminutils (4.32-1) stable; bardo wolf
+ -- s.ehlers <s.ehlers@uib.de>  Mon, 27 Jun 2012 15:00 +0000
+
+dfn_irfanview (4.32-1) stable; urgency=low
+
 	* iview432
 	* plugins
 
--- b.wolf@uib.de <b.wolf@uib.de>  Mon, 22 Jan 2012 11:19:22 +0000
-
-irfanview-adminutils (4.25-1) stable; bardo wolf
-	* iview425 (07.09.2009)
-	* plugins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ -- b.wolf@uib.de <b.wolf@uib.de>  Mon, 22 Jan 2012 11:19:22 +0000
