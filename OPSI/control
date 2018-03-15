@@ -9,7 +9,7 @@ id: dfn_irfanview
 name: IrfanView
 description: Schneller und kompakter Bildbetrachter / Fast freeware image viewer
 advice: 
-version: 4.50
+version: 4.51
 priority: 0
 licenseRequired: False
 productClasses: 
@@ -58,6 +58,13 @@ values: ["none", "post-deinstall.opsiinc"]
 default: ["none"]
 
 [Changelog]
+dfn_irfanview (4.51-1) stable; urgency=low
+
+	* Neue Upstreamversion
+	* Dateiname Installer Plugins entsprechend Download geändert
+
+ -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 15.03.2018
+
 dfn_irfanview (4.50-1) stable; urgency=low
 
 	* o4i-Logo Switch eingebaut, Update auf 4.50 -> Exe getauscht, i_view32.ini-Datei ist jetzt auf UCS-2LE, auskommentiert, bis der neue WINST das Encoding mit den Patches-Sektionen kann...
