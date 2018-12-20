@@ -1,15 +1,14 @@
 [Package]
 version: 1
 depends: 
-incremental: False
 
 [Product]
 type: localboot
 id: dfn_irfanview
 name: IrfanView
-description: Schneller und kompakter Bildbetrachter / Fast freeware image viewer
+description: Schneller und kompakter Bildbetrachter [Fast freeware image viewer]
 advice: 
-version: 4.51
+version: 4.52
 priority: 0
 licenseRequired: False
 productClasses: 
@@ -58,11 +57,15 @@ values: ["none", "post-deinstall.opsiinc"]
 default: ["none"]
 
 [Changelog]
-dfn_irfanview (4.51-1) stable; urgency=low
+dfn_irfanview (4.52-1) stable; urgency=low
+	* Neue Upstreamversion (https://www.irfanview.com/main_history.htm)
+	* neues o4i-Logo
+	* alte uib Copyrights (Überbleibsel von opsi-template) entfernt
+ -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 20.12.2018
 
+dfn_irfanview (4.51-1) stable; urgency=low
 	* Neue Upstreamversion
 	* Dateiname Installer Plugins entsprechend Download geändert
-
  -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 15.03.2018
 
 dfn_irfanview (4.50-1) stable; urgency=low

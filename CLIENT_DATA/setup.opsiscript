@@ -1,8 +1,3 @@
-; Copyright (c) uib gmbh (www.uib.de)
-; This sourcecode is owned by uib
-; and published under the Terms of the General Public License.
-; credits: http://www.opsi.org/en/credits/
-
 [Initial]
 setLogLevel=6
 ;  Log Errors in Logfile but don't abort:
@@ -66,8 +61,8 @@ Set $LogDir$ = "%SystemDrive%\tmp"
 Set $ProductId$      = "dfn_irfanview"
 Set $ProductName$    = "IrfanView"
 ;Kein Punkt in der Versionsnummer! 4.30 ist 430, 4.40 ist 440 oder 4.51 ist 451!
-Set $ProductVersion$ = strPart("%installingProdVersion%", "1", calculate(strPos("%installingProdVersion%","-") + "-" + "1" ))
-Set $SetupVersion$ = strPart($ProductVersion$, "1", "1") + strPart($ProductVersion$, "3", "2") 
+Set $ProductVersion$ = takestring (0, splitString("%installingProdVersion%", "-"))
+Set $SetupVersion$ = stringReplace($ProductVersion$,".","")
 
 Set $MinimumSpace$    			= "50 MB"
 ; the path were we find the product after the installation

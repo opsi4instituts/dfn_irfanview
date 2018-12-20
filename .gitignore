@@ -2,5 +2,6 @@
 *.bak
 *.exe
 *.md5
+*.zsync
 custom
 orig

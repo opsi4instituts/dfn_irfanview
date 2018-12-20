@@ -1,8 +1,3 @@
-; Copyright (c) uib gmbh (www.uib.de)
-; This sourcecode is owned by uib gmbh
-; and published under the Terms of the General Public License.
-; credits: http://www.opsi.org/en/credits/
-
 [Initial]
 LogLevel=9
 ;  Log Errors in Logfile but don't abort:
