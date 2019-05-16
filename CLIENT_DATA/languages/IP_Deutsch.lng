@@ -1,7 +1,7 @@
 [FileInfo]
 TranslatorName=Christian Wincziers
 LanguageName=Deutsch
-TargetVersion=0.4.13.*
+TargetVersion=0.4.*.*
 [General]
 1001=Auswahl
 1002=Pinsel
@@ -22,7 +22,7 @@ TargetVersion=0.4.13.*
 1016=Über...
 2001=Das "Auswahl-Werkzeug" ist für den normalen Gebrauch in IrfanView bestimmt, z.B. um eine Grafikauswahl zu machen oder einen\nBereich zu markieren ;-).
 2002=Der "Pinsel" ist für das Freihand-Malen bestimmt.\nMit der linken Maustaste wird mit der Vordergrund- und mit\nder rechten Maustaste mit der Hintergrundfarbe gemalt.
-2003=Der "Radierer" wird zum freihändigen Radieren genommen.\nMit der linken Maustaste wird mit der Hintergrundfarbe "wegradiert",\nwährend die rechte Maustaste das Originalbild wiederherstellt.
+2003=Der "Radierer" wird zum freihändigen Radieren genommen.\nMit der linken Maustaste wird mit der Hintergrundfarbe "wegradiert",\nwährend die rechte Maustaste das Originalbild wiederherstellt. (MUSS in Stift-Optionen aktiviert werden!)
 2004=Das "Klonen-Werkzeug" kopiert ein Areal des Bildes an eine andere Stelle, um z.B. Kratzer und Staub vom Foto zu entfernen.\nKlicke mit der rechten Maustaste ins Bild, um den Ursprungspunkt festzulegen und mit der linken Taste dorthin, wohin man dieses Areal kopiert haben möchte.
 2005=Das "Farbe vertauschen" ist selbsterklärend.\nBeim Malen mit der linken Maustaste wird die Hintergrund- mit der Vordergrundfarbe vertauscht, bei der rechten Maustaste die\nVordergrund- mit der Hintergrundfarbe.
 2006=Das "Text-Werkzeug" fügt einen formatierten Text ins Bild ein.\nDas Einfügekreuz ist die Basislinie des Textes.\nDer Text kann links- oder rechtsbündig oder auch mittig platziert werden.
@@ -117,6 +117,7 @@ TargetVersion=0.4.13.*
 1439=Farbe
 1445=Stiftgröße
 1448=Pixel (1-9999)
+1449=Aktiviere die rechte Maustaste des Radierers (benötigt mehr Speicher und Paint-Neustart)
 1440=Zweite Farbe Schraffur
 1426=Transparent
 1429=spc=1 px. spc.\r\n.=1 px. Linie
