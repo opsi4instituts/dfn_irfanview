@@ -1,6 +1,7 @@
 [Package]
 version: 1
 depends: 
+incremental: False
 
 [Product]
 type: localboot
@@ -8,7 +9,7 @@ id: dfn_irfanview
 name: IrfanView
 description: Schneller und kompakter Bildbetrachter [Fast freeware image viewer]
 advice: 
-version: 4.52
+version: 4.53
 priority: 0
 licenseRequired: False
 productClasses: 
@@ -57,6 +58,12 @@ values: ["none", "post-deinstall.opsiinc"]
 default: ["none"]
 
 [Changelog]
+dfn_irfanview (4.53-1) stable; urgency=low
+
+	* Neue Upstreamversion (https://www.irfanview.com/main_history.htm).
+
+ -- Eric Esser <eric.esser@wzb.eu>  Thu, 16 May 2019 19:41:26 +0000
+
 dfn_irfanview (4.52-1) stable; urgency=low
 	* Neue Upstreamversion (https://www.irfanview.com/main_history.htm)
 	* neues o4i-Logo
