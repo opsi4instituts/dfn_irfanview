@@ -77,7 +77,7 @@ Set $Inst_Prg$ 							= "iview"+$SetupVersion$+"g_setup.exe"
 Set $language_inifile_dll$ 	= "ENGLISH"
 Set $language_inifile_lang$ = "English"
 
-Set $Inst_Prg_Plg$ 					= "iview"+$SetupVersion$+"a_plugins_setup.exe"
+Set $Inst_Prg_Plg$ 					= "iview"+$SetupVersion$+"_plugins_setup.exe"
 
 Set $Inst_Cmd$ 							= ' /silent /folder="'+$InstallDir32$+'" /desktop=0 /allusers=1 /group=1 /assoc=1'
 Set $Inst_Cmd_Plg$ 					= ' /silent'
@@ -102,6 +102,9 @@ else
 					comment "no logo at local library/icons, use from ScriptPath ..."
 					ShowBitmap "%ScriptPath%\o4i.png" $ProductName$ + " " + $ProductVersion$
 				endif
+
+		; Abkündigung Paket mit 'error' ohne Abbruch
+		LogError "Sorry, this is not really an error, but it worked to get your attention ;-) and to inform you: 'dfn_irfanview' is deprecated. With 'o4i_irfanview' exist a successor, please switch to this package until end of November 2020."
 
         if FileExists("%ScriptPath%\delsub.opsiscript")
                 comment "Start uninstall sub section"
