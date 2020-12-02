@@ -1,5 +1,5 @@
 [Package]
-version: 1
+version: 2
 depends: 
 
 [Product]
@@ -7,7 +7,7 @@ type: localboot
 id: dfn_irfanview
 name: IrfanView
 description: Schneller und kompakter Bildbetrachter [Fast freeware image viewer]
-advice: Dieses Paket ist abgekündigt; mit 'o4i_irfanview' steht ein Nachfolgepaket bereit; dieses einfach installieren, dabei werden die Binaries sowie der Status 'installed' von 'dfn_irfanview' automatisch entfernt; Achtung, in 'o4i_irfanview' wurden Namen von ProductProperties geändert!
+advice: Dieses Paket wird nicht mehr gepflegt; mit 'o4i_irfanview' steht ein Nachfolgepaket bereit; dieses einfach installieren, dabei werden die Binaries sowie der Status 'installed' von 'dfn_irfanview' automatisch entfernt; Achtung, in 'o4i_irfanview' wurden Namen von ProductProperties geändert!
 version: 4.56
 priority: 0
 licenseRequired: False
@@ -57,6 +57,11 @@ values: ["none", "post-deinstall.opsiinc"]
 default: ["none"]
 
 [Changelog]
+dfn_irfanview (4.56-1) stable; urgency=low
+	* "dfn_irfanview" wird ab sofort nicht mehr gepflegt. Mit dieser letzten Paketversion kann entweder ein 'uninstall' durchgeführt werden oder es wird informiert und mit 'failed' abgeschlossen.
+	* Mit "o4i_irfanview" steht ein Nachfolgepaket bereit. Dieses einfach installieren, das Paket entfernt die Binaries von "dfn_irfanview" sowie ggf. den Status "installed" bzw. 'unknown' auf dem OPSI-Server.
+ -- Thomas Besser (archIT/KIT) <thomas.besser@kit.edu>, 02.12.2020
+
 dfn_irfanview (4.56-1) stable; urgency=low
 	* Neue Upstreamversion (https://www.irfanview.com/main_history.htm)
 	* log_error ohne Skriptabbruch als Information bzgl. Abkündigung

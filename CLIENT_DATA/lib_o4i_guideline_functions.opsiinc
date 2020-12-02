@@ -1,0 +1,175 @@
+;@author		Thomas Besser
+;@email			thomas.besser@kit.edu
+;@date			17.06.2020
+;@copyright		AGPLv3
+;@version		1.0
+;@filedesc 		Some recommended ProductProperties from o4i guidelines causing a lot of code or nearly the same lines in setup/delsub
+;@filedesc 		This library was initiated to simplify the code and implementation of o4i guidelines for maintainer.
+
+DefFunc runCustomDirScripts(val $ProductPropertyName$ : string) : void
+;@author		Thomas Besser
+;@email			thomas.besser@kit.edu
+;@date			17.06.2020
+;@copyright		AGPLv3
+;@version		1.0
+;@Description	Look for enabled custom-dir scripts and execute them (https://wiki.o4i.org/index.php/Richtlinien#.27custom.27_Verzeichnis)
+;@Returns		nothing (void)
+;@ParamDesc_$PropertyName$ 	Name of ProductProperty to load custom scripts from
+;@Example	[actions]
+;@Example	runCustomDirScripts("custom_post_uninstall")
+	
+	DefStringList $CustomDirScriptList$
+	DefVar $CustomDirScript$
+	
+	set $CustomDirScriptList$ = removeFromListByMatch("", getProductPropertyList($ProductPropertyName$,""))
+	if (count($CustomDirScriptList$) = "0")
+		comment "No custom script enabled. Nothing to do."
+	else
+		for %s% in $CustomDirScriptList$ do Sub_CustomDirScripts
+	endif
+
+	[Sub_CustomDirScripts]
+	set $CustomDirScript$ = "%s%"
+	if not($CustomDirScript$ = "")
+		if FileExists("%ScriptPath%\custom\" + $CustomDirScript$)
+        	comment "Calling custom script: " + $CustomDirScript$"
+			include_insert "%ScriptPath%\custom\" + $CustomDirScript$
+    	else
+        	logWarning "Requested custom script not found: " + $CustomDirScript$
+		endif
+	endif
+endfunc
+
+DefFunc checkRunningProcess(val $Exe$ : string, val $ProductName$ : string, val $Language$ : string) : void
+;@author		Thomas Besser
+;@email			thomas.besser@kit.edu
+;@date			30.06.2020
+;@copyright		AGPLv3
+;@version		1.1
+;@Description	What to do if application is running while uninstallation is initiated by kiosk or on_demand (https://wiki.o4i.org/index.php/Richtlinien#Running_Process); For own messages create files according 'RunningProcess_<language>.msg' in 'custom' directory. Possible placeholders {Exe} and {ProductName} will be replaced.
+;@Returns		nothing (void)
+;@ParamDesc_$Exe$ 			Name of binary which should not be running
+;@ParamDesc_$ProductName$	Productname according to $Exe$
+;@ParamDesc_$Language$		Language (de|en) in which the message should be shown, if empty then system language will be detected
+;@Example	[actions]
+;@Example	DefVar $Exe$
+;@Example	DefVar $ProductName$
+;@Example	DefVar $InstalledVersion$
+;@Example	Set $Exe$ = "testapp.exe"
+;@Example	Set $ProductName$ = "TestApp"
+;@Example	checkRunningProcess($Exe$, $ProductName$, "")
+
+	importLib "lib_servicecall_functions.opsiinc"
+
+	DefVar $Property$
+	DefVar $Message$
+	DefVar $MessageFile$
+	Set $Property$ = GetProductProperty("running_process", "inform")
+	
+	; falls Parameter Language leer sein sollte, dann Systemsprache ermitteln
+	if ($Language$ = "")
+		set $Language$ = lower(getValue("language_id_2chars", GetLocaleInfoMap))
+	endif
+
+	; checken ob Anwendung läuft (z.B. bei Upgrade über Kiosk) und entsprechend ProductProperty handeln
+	if ProcessIsRunning($Exe$)
+		comment "Running process of application found!"
+		Switch $Property$
+			Case "kill"
+				comment "Killing process '" + $Exe$ + "'"
+				killtask $Exe$
+			EndCase
+			Case "defer"
+				; Paket auf deferred setzen und script beenden
+				comment "Deferring action and abort script execution at this point"
+				set $Result$ = currentProductSetReport("deferred")
+				;Skript beenden (inkl. evtl. update-Skript)
+				isSuspended
+				noUpdateScript
+			EndCase
+			Case "inform"
+				comment "Inform the user and ask for stopping the application"
+				; den eingeloggten User bitten, den 'störenden' Prozess / Anwendung zu schliessen.
+				Set $MessageFile$ = "%ScriptPath%\custom\RunningProcess_" + $Language$ + ".msg"
+				; exisitiert 'RunningProcess_<language>.msg', dann verwenden; andernfalls fixe Nachricht verwenden
+				if FileExists($MessageFile$)
+					Set $Message$ = takeString(0, loadunicodetextfile($MessageFile$))
+				else
+					if ($Language$ = "de")
+						Set $Message$ = "Die angeforderte (De-)Installation kann nicht durchgefuehrt werden, solange der Prozess '{Exe}' laeuft. Bitte die Anwendung '{ProductName}' schliessen und den Vorgang fortsetzen. Sollte der Prozess danach immer noch laufen, wird die angeforderte Aktion abgebrochen und zurueckgesetzt."
+					else
+						;fallback to 'en
+						Set $Message$ = "The requested (un-)installation can not be done as long as a process '{Exe}' is running. Please stop the application '{ProductName}' and continue this procedure. If the process afterwards is still running, the requested action will be stopped and resetted."
+					endif
+				endif
+				Set $Message$ = stringReplace($Message$, "{Exe}", $Exe$)
+				Set $Message$ = stringReplace($Message$, "{ProductName}", $ProductName$)
+				Pause $Message$
+				if ProcessIsRunning($Exe$)
+					comment "Process of application is still running. Set an appropiate report, stop this script, reset the action"
+					logWarning "Informed the actual user to stop the application before proceeding. But it is still running, so aborting this script without doing anything."
+					; reset und 'setup' wieder entfernen; script beenden
+					Set $Result$ = productSetActionRequest("%installingProdName%", "none")
+					Set $Result$ = currentProductSetReport("reset")
+					;Skript beenden (inkl. evtl. update-Skript)
+					isSuspended
+					noUpdateScript
+				endif
+			EndCase
+		EndSwitch
+	endif
+endfunc
+
+DefFunc doPackageEOL(val $Successor$ : string, val $Language$ : string) : void
+;@author		Thomas Besser
+;@email			thomas.besser@kit.edu
+;@date			06.08.2020
+;@copyright		AGPLv3
+;@version		1.1
+;@Description	Show that this package is End-Of-Life (EOL) except for action 'uninstall'; stop this script with logError for the OPSI Administrator and show popup if a user is actually logged in and using the kiosk. For own messages create files according 'EOL_<language>.msg' in 'custom' directory. Possible placeholders {ProductId} and {ProductIdSuccessor} will be replaced.
+;@Returns		nothing (void)
+;@ParamDesc_$Successor$		Name of the successor package
+;@ParamDesc_$Language$		Language (de|en) in which the message should be shown, if empty then system language will be detected
+;@Example	[actions]
+;@Example	; Assuming 'dfn_vlc' as value of %InstallingProdName%
+;@Example	DefVar $Language$
+;@Example	Set $Language$ = "de"
+;@Example	doPackageEOL("o4i_vlc", $Language$")
+
+	DefVar $Message$
+	DefVar $MessageFile$
+
+	; 'uninstall' soll noch funktionieren; andernfalls wird informiert und mit 'failed' abgebrochen
+	if not (getValue("actionrequest", getProductMap) = "uninstall")
+		comment "Actionrequest is not 'uninstall'; inform and stop this script"
+		; checking for 'opsiclientkiosk.exe' is running; this only can be if a user is logged in ;-)  
+		if processIsRunning('opsiclientkiosk.exe')
+			comment "Actually a user is logged in and using kiosk app! Inform him about status EOL of this package and please him to inform his OPSI administrator."
+
+			; falls Parameter Language leer sein sollte, dann Systemsprache ermitteln
+			if ($Language$ = "")
+				set $Language$ = lower(getValue("language_id_2chars", GetLocaleInfoMap))
+			endif
+			
+			Set $MessageFile$ = "%ScriptPath%\custom\EOL_" + $Language$ + ".msg"
+			; exisitiert 'EOL_<language>.msg'
+			if FileExists($MessageFile$)
+				Set $Message$ = takeString(0, loadunicodetextfile($MessageFile$))
+				Set $Message$ = stringReplace($Message$, "{ProductIdSuccessor}", $Successor$)
+				Set $Message$ = stringReplace($Message$, "{ProductId}", "%InstallingProdName%")
+			else
+				if ($Language$ = "de")
+					Set $Message$ = "Es wird gerade versucht, das Paket '%InstallingProdName%' zu installieren/aktualisieren. Dieses Paket wird nicht mehr gepflegt! Mit '" + $Successor$ + "' steht ein Nachfolgepaket zur Verfuegung. Bitte unbedingt den OPSI-Administrator hierueber informieren! Im Log-File fuer diesen Computer sind weitere Informationen zu erhalten."
+				else
+					;fallback to 'en
+					Set $Message$ = "You are actually trying to install/update the package '%InstallingProdName%'. This package is not maintained anymore! There exists a following package '" + $Successor$ + "'. Please inform your OPSI administrator about this! He can find more informations in the log file of this computer."
+				endif
+			endif
+			Pause $Message$
+		endif
+
+		LogError "'%InstallingProdName%' wird nicht mehr gepflegt, Mit dieser letzten Paketversion kann entweder ein 'uninstall' durchgefuehrt werden oder es wird (wie jetzt) informiert und mit 'failed' abgebrochen."
+		LogError "Mit '" + $Successor$ + "' steht ein Nachfolgepaket bereit. Dieses einfach installieren, das Paket entfernt die Binaries von '%InstallingProdName%' sowie ggf. den Status 'installed' bzw. 'unknown' auf dem OPSI-Server."
+		isFatalError
+	endif
+endfunc
